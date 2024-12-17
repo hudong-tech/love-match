@@ -4,7 +4,7 @@ const features = [
   {
     icon: 'ai',
     title: 'AI智能匹配',
-    description: '基于深度学习算法,多维度分析用户特征,实现精准匹配推荐',
+    description: '基于更先进的大模型算法,多维度分析用户特征,实现精准匹配推荐',
     color: 'professional' as const,
   },
   {

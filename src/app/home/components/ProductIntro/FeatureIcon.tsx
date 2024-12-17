@@ -4,11 +4,10 @@ import { IconAI, IconAnalysis, IconAdvice, IconFast } from './icons'
 
 interface FeatureIconProps {
   name: 'ai' | 'analysis' | 'advice' | 'fast'
-  color: 'primary' | 'professional' | 'success' | 'warning'
   className?: string
 }
 
-export function FeatureIcon({ name, color, className = "" }: FeatureIconProps) {
+export function FeatureIcon({ name, className = "" }: FeatureIconProps) {
   const icons = {
     ai: IconAI,
     analysis: IconAnalysis,
@@ -21,11 +20,11 @@ export function FeatureIcon({ name, color, className = "" }: FeatureIconProps) {
   return (
     <div className={`
       w-12 h-12 rounded-xl
-      bg-${color}-lightest
+      bg-primary/10
       flex items-center justify-center
       ${className}
     `}>
-      <Icon className={`w-6 h-6 text-${color}`} />
+      <Icon className="w-6 h-6 text-primary" />
     </div>
   )
 } 
