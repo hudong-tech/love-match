@@ -3,16 +3,19 @@ interface SectionProps {
   className?: string;
   background?: 'primary' | 'secondary';
   fullScreen?: boolean;
+  id?: string;
 }
 
 export function Section({ 
   children, 
   className = '', 
   background = 'primary',
-  fullScreen = false
+  fullScreen = false,
+  id
 }: SectionProps) {
   return (
     <section 
+      id={id}
       className={`
         relative
         ${fullScreen ? 'snap-section flex items-center justify-center' : ''}

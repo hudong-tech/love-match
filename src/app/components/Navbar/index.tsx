@@ -26,10 +26,9 @@ export function Navbar() {
 
             {/* 导航链接 */}
             <div className="hidden md:flex items-center space-x-8">
-              <NavLink href="/about">关于我们</NavLink>
-              <NavLink href="/service">服务介绍</NavLink>
-              <NavLink href="/success">成功案例</NavLink>
-              <NavLink href="/help">帮助中心</NavLink>
+              <NavLink href="#features">匹配优势</NavLink>
+              <NavLink href="#guide">遇见之旅</NavLink>
+              <NavLink href="#testimonials">幸福故事</NavLink>
             </div>
           </div>
         </div>

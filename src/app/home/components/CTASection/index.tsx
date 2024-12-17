@@ -9,6 +9,7 @@ export function CTASection() {
       background="secondary"
       fullScreen
       className="snap-start"
+      id="cta"
     >
       <div className="container-page relative">
         {/* 背景装饰 */}

@@ -10,6 +10,7 @@ export function ProductIntro() {
       background="secondary"
       fullScreen
       className="snap-start"
+      id="features"
     >
       <div className="container-page relative py-20">
         <motion.div 

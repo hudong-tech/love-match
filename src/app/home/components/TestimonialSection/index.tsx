@@ -36,7 +36,7 @@ const testimonials: Testimonial[] = [
   },
   {
     id: 3,
-    content: "测评系统非常全面，帮助我更好地了解自己。推荐的对象都很符合我的期望，体验很好。",
+    content: "测评系统非常全面，帮助我更好地了解自己。推荐的对象都很符合我的期望，��验很好。",
     name: "张小姐",
     title: "已注册3个月",
     avatar: "/avatars/female-2.png",
@@ -51,6 +51,7 @@ export function TestimonialSection() {
       background="secondary"
       fullScreen
       className="snap-start"
+      id="testimonials"
     >
       <div className="container-page relative">
         <SectionHeader

@@ -38,6 +38,7 @@ export function GuideSection() {
       background="primary" 
       fullScreen
       className="snap-start"
+      id="guide"
     >
       <div className="container-page relative py-20">
         {/* 左上装饰 */}
