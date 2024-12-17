@@ -1,0 +1,19 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 圆形 -->
+  <circle cx="128" cy="128" r="64" fill="#FF8BA7" fill-opacity="0.2"/>
+  
+  <!-- 方形装饰 -->
+  <rect x="32" y="32" width="48" height="48" transform="rotate(-15 32 32)" fill="#4A90E2" fill-opacity="0.15"/>
+  
+  <!-- 三角形装饰 -->
+  <path d="M200 80L224 120L176 120L200 80Z" fill="#52C41A" fill-opacity="0.15"/>
+  
+  <!-- 波浪线 -->
+  <path d="M48 160C80 140 96 180 128 160C160 140 176 180 208 160" 
+    stroke="#FAAD14" stroke-width="4" stroke-linecap="round" stroke-opacity="0.2"/>
+  
+  <!-- 装饰点 -->
+  <circle cx="64" cy="96" r="4" fill="#FF8BA7"/>
+  <circle cx="192" cy="160" r="4" fill="#4A90E2"/>
+  <circle cx="128" cy="48" r="4" fill="#52C41A"/>
+</svg> 

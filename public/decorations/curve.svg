@@ -1,0 +1,28 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 主曲线 -->
+  <path d="M32 224C32 160 96 128 160 160C224 192 224 96 224 32" 
+    stroke="#FF8BA7" 
+    stroke-width="4" 
+    stroke-linecap="round"
+    stroke-opacity="0.3"
+  />
+  
+  <!-- 辅助曲线 -->
+  <path d="M64 208C64 160 112 144 160 160C208 176 192 112 192 64" 
+    stroke="#4A90E2" 
+    stroke-width="3" 
+    stroke-linecap="round"
+    stroke-opacity="0.2"
+  />
+  
+  <!-- 装饰点 -->
+  <circle cx="32" cy="224" r="4" fill="#FF8BA7"/>
+  <circle cx="224" cy="32" r="4" fill="#FF8BA7"/>
+  <circle cx="160" cy="160" r="6" fill="#4A90E2" fill-opacity="0.5"/>
+  
+  <!-- 小圆点装饰 -->
+  <circle cx="96" cy="180" r="2" fill="#52C41A"/>
+  <circle cx="128" cy="160" r="2" fill="#52C41A"/>
+  <circle cx="160" cy="140" r="2" fill="#52C41A"/>
+  <circle cx="192" cy="96" r="2" fill="#52C41A"/>
+</svg> 
