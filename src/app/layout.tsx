@@ -11,14 +11,22 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: {
+  children: React.ReactNode
+}) {
   return (
-    <html lang="zh-CN" suppressHydrationWarning>
-      <body className={inter.className} suppressHydrationWarning>
-        {children}
+    <html 
+      lang="zh-CN" 
+      suppressHydrationWarning
+    >
+      <body 
+        className={inter.className}
+        suppressHydrationWarning
+      >
+        <div className="snap-container custom-scrollbar">
+          {children}
+        </div>
       </body>
     </html>
-  );
+  )
 }

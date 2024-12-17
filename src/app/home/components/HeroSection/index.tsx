@@ -6,6 +6,7 @@ import { Title } from './Title'
 import { Subtitle } from './Subtitle'
 import { CTAButton } from './CTAButton'
 import { HeroImage } from './HeroImage'
+import { Section } from '@/components/common/Section'
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -32,38 +33,12 @@ const itemVariants = {
 
 export function HeroSection() {
   return (
-    <section className="relative bg-gradient-to-br from-amber-50 via-rose-50 to-purple-50 section-padding pt-32 sm:pt-36 overflow-hidden">
-      {/* 装饰元素 */}
-      <motion.div 
-        className="absolute right-0 top-0 w-32 md:w-48 lg:w-64 opacity-20"
-        initial={{ opacity: 0, rotate: -10, scale: 0.8 }}
-        animate={{ opacity: 0.2, rotate: 0, scale: 1 }}
-        transition={{ duration: 1, ease: "easeOut" }}
-      >
-        <Image
-          src="/decorations/geometric.svg"
-          alt=""
-          width={256}
-          height={256}
-          className="w-full h-auto [filter:hue-rotate(30deg)]"
-        />
-      </motion.div>
-      <motion.div 
-        className="absolute left-0 bottom-0 w-32 md:w-48 lg:w-64 opacity-10"
-        initial={{ opacity: 0, rotate: 10, scale: 0.8 }}
-        animate={{ opacity: 0.1, rotate: 0, scale: 1 }}
-        transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
-      >
-        <Image
-          src="/decorations/curve.svg"
-          alt=""
-          width={256}
-          height={256}
-          className="w-full h-auto"
-        />
-      </motion.div>
-
-      <div className="container-page">
+    <Section 
+      background="primary"
+      fullScreen
+      className="snap-start"
+    >
+      <div className="container-page relative py-20">
         <motion.div 
           className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center"
           variants={containerVariants}
@@ -89,6 +64,6 @@ export function HeroSection() {
           </motion.div>
         </motion.div>
       </div>
-    </section>
+    </Section>
   )
 } 

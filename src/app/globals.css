@@ -7,13 +7,17 @@
   --background-rgb: 255, 255, 255;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: rgb(var(--background-rgb));
+@layer base {
+  html {
+    @apply h-full antialiased;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  body {
+    @apply h-full;
+    color: rgb(var(--foreground-rgb));
+    background: rgb(var(--background-rgb));
+  }
 }
 
 @layer components {
@@ -22,10 +26,43 @@ body {
   }
 
   .section-padding {
-    @apply py-12 sm:py-16 lg:py-20;
+    @apply py-16 sm:py-20 lg:py-24;
+  }
+}
+
+/* 滚动容器样式 */
+.snap-container {
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-snap-type: y mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.snap-section {
+  min-height: 100vh;
+  width: 100%;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+/* 优化滚动条样式 */
+@media (min-width: 768px) {
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
   }
 
-  .card {
-    @apply bg-white rounded-xl shadow-sm;
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
   }
 }

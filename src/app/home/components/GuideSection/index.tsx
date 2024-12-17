@@ -34,7 +34,11 @@ const GUIDE_STEPS = [
 
 export function GuideSection() {
   return (
-    <Section background="secondary" className="min-h-screen flex items-center">
+    <Section 
+      background="primary" 
+      fullScreen
+      className="snap-start"
+    >
       <div className="container-page relative py-20">
         {/* 左上装饰 */}
         <motion.div

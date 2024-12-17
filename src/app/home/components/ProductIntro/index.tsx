@@ -2,11 +2,16 @@
 
 import { motion } from 'framer-motion'
 import { FeatureGrid } from './FeatureGrid'
+import { Section } from '@/components/common/Section'
 
 export function ProductIntro() {
   return (
-    <section className="bg-background-primary section-padding">
-      <div className="container-page">
+    <Section 
+      background="secondary"
+      fullScreen
+      className="snap-start"
+    >
+      <div className="container-page relative py-20">
         <motion.div 
           className="text-center mb-12"
           initial={{ opacity: 0, y: 20 }}
@@ -23,6 +28,6 @@ export function ProductIntro() {
         </motion.div>
         <FeatureGrid />
       </div>
-    </section>
+    </Section>
   )
 } 
