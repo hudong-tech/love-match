@@ -3,7 +3,8 @@ import { Navbar } from './components/Navbar'
 import { HeroSection } from './home/components/HeroSection'
 import { ProductIntro } from './home/components/ProductIntro'
 import { GuideSection } from './home/components/GuideSection'
-import { ResultExample } from './home/components/ResultExample'
+import { TestimonialSection } from './home/components/TestimonialSection'
+import { CTASection } from './home/components/CTASection'
 
 export default function Home() {
   return (
@@ -20,7 +21,10 @@ export default function Home() {
           <GuideSection />
         </Suspense>
         <Suspense>
-          <ResultExample />
+          <TestimonialSection />
+        </Suspense>
+        <Suspense>
+          <CTASection />
         </Suspense>
       </main>
     </>
