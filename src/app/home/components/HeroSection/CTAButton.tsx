@@ -11,7 +11,7 @@ export function CTAButton() {
         whileTap={{ scale: 0.98 }}
       >
         <Link 
-          href="/assessment"
+          href="/quiz/info"
           className="
             inline-flex items-center justify-center
             px-12 py-4 sm:px-14 sm:py-5

@@ -2,8 +2,11 @@
 
 import { Section } from '@/components/common/Section'
 import { motion } from 'framer-motion'
+import { useRouter } from 'next/navigation'
 
 export function CTASection() {
+  const router = useRouter()
+
   return (
     <Section 
       background="secondary"
@@ -42,7 +45,7 @@ export function CTASection() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => {
-                // TODO: 处理注册/开始测评逻辑
+                router.push('/quiz/info')
               }}
             >
               立即开始测评
