@@ -2,7 +2,7 @@ export interface Question {
   id: number
   title: string
   options: string[]
-  category: 'personality' | 'values' | 'lifestyle' | 'experience' | 'expectation'
+  category: 'daily' | 'values' | 'communication' | 'lifestyle' | 'overall'
 }
 
 export interface Answer {
@@ -51,11 +51,11 @@ export interface UserInfo {
 export interface ResultData {
   overall: number
   dimensions: {
-    personality: number
-    values: number
-    lifestyle: number
-    experience: number
-    expectation: number
+    daily: number        // 日常相处
+    values: number       // 价值观
+    communication: number // 沟通方式
+    lifestyle: number    // 生活方式
+    overall: number      // 综合评价
   }
   suggestions: Array<{
     title: string

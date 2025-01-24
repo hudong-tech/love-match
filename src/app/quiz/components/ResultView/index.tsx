@@ -23,6 +23,8 @@ interface ResultData {
 export function ResultView() {
   const router = useRouter()
   const [result, setResult] = useState<ResultData | null>(null)
+  const [improvement, setImprovement] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   useEffect(() => {
     // 从localStorage获取结果
@@ -40,6 +42,27 @@ export function ResultView() {
       router.replace('/quiz/info')
     }
   }, [router])
+
+  const handleSubmitImprovement = async () => {
+    if (!improvement.trim()) return
+    
+    setIsSubmitting(true)
+    try {
+      // 可以发送到后端保存
+      await fetch('/api/quiz/improvement', {
+        method: 'POST',
+        body: JSON.stringify({ improvement })
+      })
+      
+      // 显示成功提示
+      alert('感谢您的反馈！')
+      setImprovement('')
+    } catch (error) {
+      console.error('提交失败:', error)
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
 
   if (!result) return null
 
@@ -122,6 +145,35 @@ export function ResultView() {
                     <p className="text-text-secondary">{suggestion.content}</p>
                   </motion.div>
                 ))}
+              </div>
+            </motion.div>
+
+            {/* 改进建议输入区域 */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6 }}
+              className="bg-white rounded-2xl p-6 shadow-sm mt-8"
+            >
+              <h2 className="text-xl font-semibold mb-4">
+                你希望对方可以改变什么？
+              </h2>
+              <div className="space-y-4">
+                <textarea
+                  value={improvement}
+                  onChange={(e) => setImprovement(e.target.value)}
+                  placeholder="请描述你希望对方改变的地方..."
+                  className="w-full h-32 p-4 border border-gray-200 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-primary/50"
+                />
+                <div className="flex justify-end">
+                  <button
+                    onClick={handleSubmitImprovement}
+                    disabled={isSubmitting || !improvement.trim()}
+                    className="px-6 py-2 bg-primary text-white rounded-lg disabled:opacity-50"
+                  >
+                    {isSubmitting ? '提交中...' : '提交建议'}
+                  </button>
+                </div>
               </div>
             </motion.div>
 
