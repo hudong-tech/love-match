@@ -15,10 +15,15 @@ export function useQuizState() {
     }
     
     // 尝试从 localStorage 读取状态
-    const saved = localStorage.getItem(STORAGE_KEY)
-    if (saved) {
+    const savedAnswers = localStorage.getItem('quiz_answers')
+    const savedStep = localStorage.getItem('quiz_step')
+    
+    if (savedAnswers && savedStep) {
       try {
-        return JSON.parse(saved)
+        return {
+          currentStep: parseInt(savedStep),
+          answers: JSON.parse(savedAnswers)
+        }
       } catch (e) {
         console.error('Failed to parse saved quiz state:', e)
       }

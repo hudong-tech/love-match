@@ -7,6 +7,7 @@ import { Section } from '@/components/common/Section'
 import { Question } from './Question'
 import { questions } from '../../data/questions'
 import { useQuizState } from '../../hooks/useQuizState'
+import { testAnswers } from '../../data/testData'
 
 export function QuizForm() {
   const router = useRouter()
@@ -68,6 +69,15 @@ export function QuizForm() {
     } finally {
       setIsSubmitting(false)
     }
+  }
+
+  // 添加测试功能
+  const handleTestMode = () => {
+    // 存储测试答案
+    localStorage.setItem('quiz_answers', JSON.stringify(testAnswers))
+    
+    // 跳转到结果页
+    router.push('/quiz/result')
   }
 
   return (
@@ -143,6 +153,16 @@ export function QuizForm() {
               </button>
             )}
           </div>
+
+          {/* 添加测试按钮 - 仅在开发环境显示 */}
+          {process.env.NODE_ENV === 'development' && (
+            <button
+              onClick={handleTestMode}
+              className="fixed bottom-4 right-4 bg-gray-800 text-white px-4 py-2 rounded"
+            >
+              使用测试答案
+            </button>
+          )}
         </div>
       </Section>
     </main>

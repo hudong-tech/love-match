@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { Section } from '@/components/common/Section'
+import { expectedResult } from '../../data/testData'
 
 interface ResultData {
   overall: number
@@ -42,6 +43,13 @@ export function ResultView() {
       router.replace('/quiz/info')
     }
   }, [router])
+
+  useEffect(() => {
+    // 如果是测试模式，直接使用预期结果
+    if (process.env.NODE_ENV === 'development') {
+      setResult(expectedResult)
+    }
+  }, [])
 
   const handleSubmitImprovement = async () => {
     if (!improvement.trim()) return

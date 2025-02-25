@@ -7,6 +7,7 @@ import { Section } from '@/components/common/Section'
 import type { UserInfo } from '../../types'
 import { PersonForm } from './PersonForm'
 import Link from 'next/link'
+import { testPersonA, testPersonB, testAnswers } from '../../data/testData'
 
 export function InfoForm() {
   const router = useRouter()
@@ -47,6 +48,22 @@ export function InfoForm() {
       console.error('保存用户信息失败:', error)
       router.push('/quiz/quiz')
     }
+  }
+
+  // 添加测试功能
+  const handleTestMode = () => {
+    // 存储个人信息
+    localStorage.setItem('person_a', JSON.stringify(testPersonA))
+    localStorage.setItem('person_b', JSON.stringify(testPersonB))
+    
+    // 存储测试答案
+    localStorage.setItem('quiz_answers', JSON.stringify(testAnswers))
+    
+    // 存储当前步骤为最后一题
+    localStorage.setItem('quiz_step', '19') // 更新为实际的问题总数
+    
+    // 跳转到问卷页面
+    router.push('/quiz/quiz')
   }
 
   return (
@@ -142,6 +159,16 @@ export function InfoForm() {
               </svg>
             </motion.button>
           </div>
+
+          {/* 添加测试按钮 - 仅在开发环境显示 */}
+          {process.env.NODE_ENV === 'development' && (
+            <button
+              onClick={handleTestMode}
+              className="fixed bottom-4 right-4 bg-gray-800 text-white px-4 py-2 rounded"
+            >
+              使用测试数据
+            </button>
+          )}
         </div>
       </div>
     </Section>
