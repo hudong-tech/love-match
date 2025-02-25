@@ -8,10 +8,12 @@ import { Question } from './Question'
 import { questions } from '../../data/questions'
 import { useQuizState } from '../../hooks/useQuizState'
 import { testAnswers } from '../../data/testData'
+import { AnalysisLoading } from '@/components/common/AnalysisLoading'
 
 export function QuizForm() {
   const router = useRouter()
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [analysisStep, setAnalysisStep] = useState(0)
   const {
     currentStep: step,
     answers,
@@ -37,8 +39,8 @@ export function QuizForm() {
   const handleSubmit = async () => {
     try {
       setIsSubmitting(true)
+      setAnalysisStep(1) // 开始提交
       
-      // 从localStorage获取用户信息
       const personA = JSON.parse(localStorage.getItem('person_a') || '{}')
       const personB = JSON.parse(localStorage.getItem('person_b') || '{}')
       
@@ -47,11 +49,7 @@ export function QuizForm() {
         throw new Error('用户信息不完整')
       }
 
-      console.log('Submitting data:', {
-        answers: answers.length,
-        personA: personA.name,
-        personB: personB.name
-      })
+      setAnalysisStep(2) // 开始分析
       
       const response = await fetch('/api/quiz/submit', {
         method: 'POST',
@@ -67,15 +65,18 @@ export function QuizForm() {
 
       if (!response.ok) {
         const errorData = await response.json()
-        console.error('Server error:', errorData)
         throw new Error(errorData.error || '提交失败')
       }
+
+      setAnalysisStep(3) // 生成建议
 
       const result = await response.json()
       
       if (!result.data) {
         throw new Error('返回数据格式错误')
       }
+
+      setAnalysisStep(4) // 准备报告
       
       // 记录成功的测评日志
       console.log('测评完成:', {
@@ -102,14 +103,13 @@ export function QuizForm() {
       
       // 清除本地存储
       clearState()
-      
-      // 清除测试模式标记
       localStorage.removeItem('quiz_answers')
       
       // 保存结果
       localStorage.setItem('quiz_result', JSON.stringify(result.data))
       
-      // 跳转到结果页
+      // 延迟跳转，让用户看到完成动画
+      await new Promise(resolve => setTimeout(resolve, 500))
       router.push('/quiz/result')
       
     } catch (error) {
@@ -117,6 +117,7 @@ export function QuizForm() {
       alert(error instanceof Error ? error.message : '提交失败，请稍后重试')
     } finally {
       setIsSubmitting(false)
+      setAnalysisStep(0)
     }
   }
 
@@ -131,6 +132,7 @@ export function QuizForm() {
 
   return (
     <main>
+      {isSubmitting && <AnalysisLoading currentStep={analysisStep} />}
       <Section 
         background="primary"
         className="min-h-screen pt-20"
