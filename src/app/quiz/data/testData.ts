@@ -143,13 +143,13 @@ export const testAnswers = [
 
 // 更新预期的匹配结果以匹配更真实的答案
 export const expectedResult = {
-  overall: 82, // 总匹配度
+  overall: 86, // 总匹配度
   dimensions: {
     daily: 85, // 日常相处
     values: 83, // 价值观
     communication: 78, // 沟通方式
-    lifestyle: 75, // 生活方式
-    overall: 80 // 综合评价
+    lifestyle: 90, // 生活方式
+    overall: 86 // 综合评价
   },
   suggestions: [
     {
