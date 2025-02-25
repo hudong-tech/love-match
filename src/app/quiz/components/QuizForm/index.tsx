@@ -35,29 +35,78 @@ export function QuizForm() {
   const currentAnswer = answers.find(a => a.questionId === currentQuestion.id)
 
   const handleSubmit = async () => {
-    if (answers.length < totalSteps) return
-    
     try {
       setIsSubmitting(true)
+      
+      // 从localStorage获取用户信息
+      const personA = JSON.parse(localStorage.getItem('person_a') || '{}')
+      const personB = JSON.parse(localStorage.getItem('person_b') || '{}')
+      
+      // 验证数据
+      if (!personA.name || !personB.name) {
+        throw new Error('用户信息不完整')
+      }
+
+      console.log('Submitting data:', {
+        answers: answers.length,
+        personA: personA.name,
+        personB: personB.name
+      })
       
       const response = await fetch('/api/quiz/submit', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ answers })
+        body: JSON.stringify({
+          answers,
+          personA,
+          personB
+        }),
       })
 
       if (!response.ok) {
-        throw new Error('提交失败')
+        const errorData = await response.json()
+        console.error('Server error:', errorData)
+        throw new Error(errorData.error || '提交失败')
       }
 
       const result = await response.json()
       
+      if (!result.data) {
+        throw new Error('返回数据格式错误')
+      }
+      
+      // 记录成功的测评日志
+      console.log('测评完成:', {
+        timestamp: new Date().toISOString(),
+        personA: {
+          name: personA.name,
+          gender: personA.gender,
+          education: personA.education,
+          occupation: personA.occupation
+        },
+        personB: {
+          name: personB.name,
+          gender: personB.gender,
+          education: personB.education,
+          occupation: personB.occupation
+        },
+        answersCount: answers.length,
+        result: {
+          overall: result.data.overall,
+          dimensions: result.data.dimensions,
+          suggestionsCount: result.data.suggestions.length
+        }
+      })
+      
       // 清除本地存储
       clearState()
       
-      // 将结果保存到 localStorage，供结果页面使用
+      // 清除测试模式标记
+      localStorage.removeItem('quiz_answers')
+      
+      // 保存结果
       localStorage.setItem('quiz_result', JSON.stringify(result.data))
       
       // 跳转到结果页
@@ -65,7 +114,7 @@ export function QuizForm() {
       
     } catch (error) {
       console.error('提交测评失败:', error)
-      alert('提交失败，请稍后重试')
+      alert(error instanceof Error ? error.message : '提交失败，请稍后重试')
     } finally {
       setIsSubmitting(false)
     }

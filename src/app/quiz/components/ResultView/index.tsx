@@ -28,8 +28,12 @@ export function ResultView() {
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   useEffect(() => {
+    // 检查是否是测试模式
+    const isTestMode = localStorage.getItem('quiz_answers') !== null
+    
     // 从localStorage获取结果
     const savedResult = localStorage.getItem('quiz_result')
+    
     if (!savedResult) {
       // 如果没有结果，重定向到测评页
       router.replace('/quiz/info')
@@ -37,19 +41,18 @@ export function ResultView() {
     }
 
     try {
-      setResult(JSON.parse(savedResult))
+      // 如果是测试模式，使用测试数据
+      if (isTestMode && process.env.NODE_ENV === 'development') {
+        setResult(expectedResult)
+      } else {
+        // 否则使用API返回的数据
+        setResult(JSON.parse(savedResult))
+      }
     } catch (e) {
       console.error('Failed to parse result:', e)
       router.replace('/quiz/info')
     }
   }, [router])
-
-  useEffect(() => {
-    // 如果是测试模式，直接使用预期结果
-    if (process.env.NODE_ENV === 'development') {
-      setResult(expectedResult)
-    }
-  }, [])
 
   const handleSubmitImprovement = async () => {
     if (!improvement.trim()) return
@@ -112,11 +115,11 @@ export function ResultView() {
                   <div key={key}>
                     <div className="flex justify-between mb-2">
                       <span className="text-text-secondary">
-                        {key === 'personality' && '性格特征'}
+                        {key === 'daily' && '日常相处'}
                         {key === 'values' && '价值观'}
-                        {key === 'lifestyle' && '生活习惯'}
-                        {key === 'experience' && '感情经历'}
-                        {key === 'expectation' && '期望匹配'}
+                        {key === 'communication' && '沟通方式'}
+                        {key === 'lifestyle' && '生活方式'}
+                        {key === 'overall' && '综合评价'}
                       </span>
                       <span className="font-medium">{value}%</span>
                     </div>

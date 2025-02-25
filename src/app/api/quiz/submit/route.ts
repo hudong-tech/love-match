@@ -1,59 +1,85 @@
-import { NextResponse } from 'next/server'
-import type { Answer } from '@/app/quiz/types'
-
-// 简单的匹配度计算函数
-function calculateMatchRate(answers: Answer[]) {
-  // TODO: 实现更复杂的匹配算法
-  return {
-    overall: Math.round(Math.random() * 20 + 80), // 80-100之间
-    dimensions: {
-      personality: Math.round(Math.random() * 20 + 75),
-      values: Math.round(Math.random() * 20 + 75),
-      lifestyle: Math.round(Math.random() * 20 + 75),
-      experience: Math.round(Math.random() * 20 + 75),
-      expectation: Math.round(Math.random() * 20 + 75),
-    },
-    suggestions: [
-      {
-        title: '性格特征',
-        content: '你是一个善于表达、重视情感的人。建议寻找一个能够理解并欣赏你这些特质的伴侣。'
-      },
-      {
-        title: '生活方式',
-        content: '你的生活节奏规律，注重生活品质。建议寻找一个有相似生活习惯的伴侣，这样更容易培养共同的生活方式。'
-      },
-      {
-        title: '情感建议',
-        content: '你在感情中注重沟通和理解。建议在未来的感情中保持这种开放和真诚的态度，这将帮助你建立更深层的情感连接。'
-      }
-    ]
-  }
-}
+import { analyzeMatch } from '@/app/quiz/services/analysis'
+import { logger } from '@/lib/services/logger'
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json()
-    const { answers } = body as { answers: Answer[] }
+    console.log('API route started')
+    
+    // 添加环境变量日志
+    console.log('Environment:', {
+      baseURL: process.env.OPENAI_API_BASEURL,
+      model: process.env.OPENAI_API_MODEL,
+      hasKey: !!process.env.OPENAI_API_KEY
+    })
 
-    if (!answers || !Array.isArray(answers) || answers.length === 0) {
-      return NextResponse.json(
-        { error: '无效的答案数据' },
+    const body = await request.json()
+    console.log('Request body parsed')
+    
+    const { answers, personA, personB } = body
+    
+    // 记录请求日志
+    await logger.log('request', {
+      personA: {
+        name: personA.name,
+        gender: personA.gender,
+        education: personA.education,
+        occupation: personA.occupation
+      },
+      personB: {
+        name: personB.name,
+        gender: personB.gender,
+        education: personB.education,
+        occupation: personB.occupation
+      },
+      answersCount: answers.length
+    })
+    
+    // 验证数据
+    if (!answers?.length || !personA?.name || !personB?.name) {
+      console.log('Missing data:', { answers, personA, personB })
+      return Response.json(
+        { error: '缺少必要数据' },
         { status: 400 }
       )
     }
 
-    // 计算匹配结果
-    const result = calculateMatchRate(answers)
-
-    return NextResponse.json({
-      success: true,
-      data: result
+    // 添加分析前日志
+    console.log('Calling analyzeMatch with:', {
+      personA: personA.name,
+      personB: personB.name,
+      answersCount: answers.length
     })
 
+    const result = await analyzeMatch(personA, personB, answers)
+    
+    // 验证结果
+    if (!result?.overall || !result?.dimensions || !result?.suggestions) {
+      throw new Error('分析结果格式错误')
+    }
+    
+    // 记录结果日志
+    await logger.log('result', {
+      personA: personA.name,
+      personB: personB.name,
+      overall: result.overall,
+      dimensions: result.dimensions,
+      suggestions: result.suggestions.map(s => ({
+        title: s.title,
+        content: s.content
+      }))
+    })
+    
+    return Response.json({ data: result })
+    
   } catch (error) {
-    console.error('提交测评失败:', error)
-    return NextResponse.json(
-      { error: '提交失败，请稍后重试' },
+    // 记录错误日志
+    await logger.log('error', {
+      error: error instanceof Error ? error.message : '未知错误',
+      stack: error instanceof Error ? error.stack : undefined
+    })
+    
+    return Response.json(
+      { error: '分析失败，请稍后重试' },
       { status: 500 }
     )
   }

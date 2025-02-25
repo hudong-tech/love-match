@@ -143,26 +143,26 @@ export const testAnswers = [
 
 // 更新预期的匹配结果以匹配更真实的答案
 export const expectedResult = {
-  overall: 86, // 总匹配度
+  overall: 85,
   dimensions: {
-    daily: 85, // 日常相处
-    values: 83, // 价值观
-    communication: 78, // 沟通方式
-    lifestyle: 90, // 生活方式
-    overall: 86 // 综合评价
+    daily: 88,
+    values: 85,
+    communication: 82,
+    lifestyle: 80,
+    overall: 85
   },
   suggestions: [
     {
       title: "沟通方式",
-      content: "你们在沟通上还需要更多耐心，建议多花时间倾听对方的想法，尝试理解对方的表达方式。"
+      content: "建议多创造独处时间，增进彼此了解。"
     },
     {
       title: "生活习惯",
-      content: "在生活方式上存在一些差异，建议双方互相体谅，逐步找到平衡点，培养更多共同兴趣。"
+      content: "可以一起制定一些共同的生活计划。"
     },
     {
-      title: "未来发展",
-      content: "对未来规划基本一致，但在细节上需要更多沟通。建议共同制定具体的行动计划，循序渐进地实现。"
+      title: "价值观",
+      content: "在重要决定上多交流，寻求共识。"
     }
   ]
 } 

@@ -57,8 +57,8 @@ export interface ResultData {
     lifestyle: number    // 生活方式
     overall: number      // 综合评价
   }
-  suggestions: Array<{
+  suggestions: {
     title: string
     content: string
-  }>
+  }[]
 } 
