@@ -1,8 +1,12 @@
 import { analyzeMatch } from '@/app/quiz/services/analysis'
 import { logger } from '@/lib/services/logger'
+import dbConnect from '@/lib/db/connect'
+import { Assessment } from '@/lib/db/models/assessment'
 
 export async function POST(request: Request) {
   try {
+    await dbConnect()
+    
     console.log('API route started')
     
     // 添加环境变量日志
@@ -43,6 +47,22 @@ export async function POST(request: Request) {
       )
     }
 
+    // 创建测评记录
+    const assessment = new Assessment({
+      assessmentId: `${Date.now()}_${personA.name}_${personB.name}`,
+      personA,
+      personB,
+      answers,
+      metadata: {
+        source: 'web',
+        version: '1.0',
+        processingTime: 0
+      }
+    })
+    
+    // 记录开始时间
+    const startTime = Date.now()
+    
     // 添加分析前日志
     console.log('Calling analyzeMatch with:', {
       personA: personA.name,
@@ -50,12 +70,20 @@ export async function POST(request: Request) {
       answersCount: answers.length
     })
 
+    // 进行AI分析
     const result = await analyzeMatch(personA, personB, answers)
     
     // 验证结果
     if (!result?.overall || !result?.dimensions || !result?.suggestions) {
       throw new Error('分析结果格式错误')
     }
+    
+    // 更新测评记录
+    assessment.result = result
+    assessment.metadata.processingTime = Date.now() - startTime
+    
+    // 保存记录
+    await assessment.save()
     
     // 记录结果日志
     await logger.log('result', {
