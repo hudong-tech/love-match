@@ -2,6 +2,7 @@ import { analyzeMatch } from '@/app/quiz/services/analysis'
 import { logger } from '@/lib/services/logger'
 import dbConnect from '@/lib/db/connect'
 import { Assessment } from '@/lib/db/models/assessment'
+import type { AssessmentDocument } from '@/lib/db/models/assessment'
 
 export async function POST(request: Request) {
   try {
@@ -49,7 +50,7 @@ export async function POST(request: Request) {
 
     // 创建测评记录
     const assessment = new Assessment({
-      assessmentId: `${Date.now()}_${personA.name}_${personB.name}`,
+      assessmentId: `${Math.floor(new Date().getTime()/1000)}_${personA.name}_${personB.name}`,
       personA,
       personB,
       answers,
@@ -58,7 +59,7 @@ export async function POST(request: Request) {
         version: '1.0',
         processingTime: 0
       }
-    })
+    }) as AssessmentDocument
     
     // 记录开始时间
     const startTime = Date.now()
@@ -78,11 +79,13 @@ export async function POST(request: Request) {
       throw new Error('分析结果格式错误')
     }
     
-    // 更新测评记录
+    // 更新并保存记录
     assessment.result = result
-    assessment.metadata.processingTime = Date.now() - startTime
+    assessment.metadata = {
+      ...assessment.metadata,
+      processingTime: Date.now() - startTime
+    }
     
-    // 保存记录
     await assessment.save()
     
     // 记录结果日志

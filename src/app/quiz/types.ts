@@ -48,17 +48,19 @@ export interface UserInfo {
   partner: PersonInfo
 }
 
+export interface Dimensions {
+  daily: number        // 日常相处
+  values: number       // 价值观
+  communication: number // 沟通方式
+  lifestyle: number    // 生活方式
+  overall: number      // 综合评价
+}
+
 export interface ResultData {
   overall: number
-  dimensions: {
-    daily: number        // 日常相处
-    values: number       // 价值观
-    communication: number // 沟通方式
-    lifestyle: number    // 生活方式
-    overall: number      // 综合评价
-  }
-  suggestions: {
+  dimensions: Dimensions
+  suggestions: Array<{
     title: string
     content: string
-  }[]
+  }>
 } 

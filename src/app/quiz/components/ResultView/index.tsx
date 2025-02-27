@@ -5,21 +5,7 @@ import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { Section } from '@/components/common/Section'
 import { expectedResult } from '../../data/testData'
-
-interface ResultData {
-  overall: number
-  dimensions: {
-    personality: number
-    values: number
-    lifestyle: number
-    experience: number
-    expectation: number
-  }
-  suggestions: Array<{
-    title: string
-    content: string
-  }>
-}
+import type { ResultData } from '../../types'
 
 export function ResultView() {
   const router = useRouter()

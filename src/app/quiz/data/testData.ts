@@ -1,3 +1,5 @@
+import type { ResultData } from '../types'
+
 // 测试用户A的信息
 export const testPersonA = {
   name: "张小明",
@@ -142,16 +144,20 @@ export const testAnswers = [
 ]
 
 // 更新预期的匹配结果以匹配更真实的答案
-export const expectedResult = {
+export const expectedResult: ResultData = {
   overall: 85,
   dimensions: {
-    daily: 88,
-    values: 85,
-    communication: 82,
-    lifestyle: 80,
-    overall: 85
+    daily: 82,        // 日常相处
+    values: 88,       // 价值观
+    communication: 85, // 沟通方式
+    lifestyle: 80,    // 生活方式
+    overall: 85       // 综合评价
   },
   suggestions: [
+    {
+      title: '加强沟通和理解',
+      content: '建议两人可以定期进行深入的交流...'
+    },
     {
       title: "沟通方式",
       content: "建议多创造独处时间，增进彼此了解。"
