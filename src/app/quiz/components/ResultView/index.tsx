@@ -122,6 +122,26 @@ export function ResultView() {
               </div>
             </motion.div>
 
+            {/* 命理分析 */}
+            <motion.div 
+              className="bg-white rounded-lg p-6 shadow mb-6"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.7 }}
+            >
+              <h2 className="text-xl font-semibold mb-4">命理匹配分析</h2>
+              <p className="text-text-secondary mb-4">{result.destinyAnalysis.summary}</p>
+              
+              <h3 className="font-medium mb-2">相合度</h3>
+              <p className="text-text-secondary mb-3">{result.destinyAnalysis.compatibility}</p>
+              
+              <h3 className="font-medium mb-2">优势</h3>
+              <p className="text-text-secondary mb-3">{result.destinyAnalysis.strengths}</p>
+              
+              <h3 className="font-medium mb-2">挑战</h3>
+              <p className="text-text-secondary mb-3">{result.destinyAnalysis.challenges}</p>
+            </motion.div>
+
             {/* 建议 */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}

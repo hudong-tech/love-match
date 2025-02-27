@@ -63,4 +63,10 @@ export interface ResultData {
     title: string
     content: string
   }>
+  destinyAnalysis: {
+    summary: string
+    compatibility: string
+    strengths: string
+    challenges: string
+  }
 } 
