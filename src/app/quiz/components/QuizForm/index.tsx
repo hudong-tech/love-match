@@ -1,7 +1,7 @@
 "use client"
 
 import { motion, AnimatePresence } from 'framer-motion'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { Section } from '@/components/common/Section'
 import { Question } from './Question'
@@ -41,8 +41,10 @@ export function QuizForm() {
       setIsSubmitting(true)
       setAnalysisStep(1) // 开始提交
       
-      const personA = JSON.parse(localStorage.getItem('person_a') || '{}')
-      const personB = JSON.parse(localStorage.getItem('person_b') || '{}')
+      // 从user_info中获取数据
+      const userInfo = JSON.parse(localStorage.getItem('user_info') || '{}')
+      const personA = userInfo.self || {}
+      const personB = userInfo.partner || {}
       
       // 验证数据
       if (!personA.name || !personB.name) {
@@ -129,6 +131,26 @@ export function QuizForm() {
     // 跳转到结果页
     router.push('/quiz/result')
   }
+
+  useEffect(() => {
+    // 检查用户信息是否存在
+    const userInfo = localStorage.getItem('user_info')
+    
+    if (!userInfo) {
+      // 如果信息不存在，重定向到信息页
+      router.replace('/quiz/info')
+    } else {
+      // 检查数据有效性
+      try {
+        const parsedInfo = JSON.parse(userInfo)
+        if (!parsedInfo.self?.name || !parsedInfo.partner?.name) {
+          router.replace('/quiz/info')
+        }
+      } catch (e) {
+        router.replace('/quiz/info')
+      }
+    }
+  }, [router])
 
   return (
     <main>

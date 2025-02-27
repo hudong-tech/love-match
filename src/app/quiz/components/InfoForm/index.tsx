@@ -42,11 +42,14 @@ export function InfoForm() {
     }
     
     try {
+      // 同时使用两种存储方式确保兼容性
       localStorage.setItem('user_info', JSON.stringify(info))
+      localStorage.setItem('person_a', JSON.stringify(info.self))
+      localStorage.setItem('person_b', JSON.stringify(info.partner))
       router.push('/quiz/quiz')
     } catch (error) {
       console.error('保存用户信息失败:', error)
-      router.push('/quiz/quiz')
+      alert('保存信息失败，请重试')
     }
   }
 
