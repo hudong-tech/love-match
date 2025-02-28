@@ -85,6 +85,12 @@ const AssessmentSchema = new Schema<AssessmentDocument>({
   result: {
     overall: Number,
     dimensions: DimensionsSchema,
+    destinyAnalysis: {
+      summary: String,
+      compatibility: String,
+      strengths: String,
+      challenges: String
+    },
     suggestions: [SuggestionSchema]
   },
   

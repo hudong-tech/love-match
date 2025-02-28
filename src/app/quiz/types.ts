@@ -63,7 +63,7 @@ export interface ResultData {
     title: string
     content: string
   }>
-  destinyAnalysis: {
+  destinyAnalysis?: {
     summary: string
     compatibility: string
     strengths: string

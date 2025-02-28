@@ -1,5 +1,5 @@
 export const matchAnalysisPrompt = `
-作为一个专业的婚恋顾问，请分析以下两个人的匹配程度。
+作为一个专业的婚恋顾问和命理分析师，请分析以下两个人的匹配程度。
 
 基本信息：
 [个人信息]
@@ -9,17 +9,17 @@ export const matchAnalysisPrompt = `
 
 请从以下几个维度进行分析：
 
-1. 日常相处（权重30%）
+1. 日常相处（权重25%）
 - 生活习惯的契合度
 - 相处模式的和谐度
 - 互相理解和包容程度
 
-2. 价值观（权重25%）
+2. 价值观（权重20%）
 - 人生目标的一致性
 - 金钱观念的匹配度
 - 家庭观念的契合度
 
-3. 沟通方式（权重20%）
+3. 沟通方式（权重15%）
 - 表达方式的兼容性
 - 倾听和理解能力
 - 矛盾处理方式
@@ -34,10 +34,17 @@ export const matchAnalysisPrompt = `
 - 发展潜力评估
 - 需要改进的方向
 
+6. 命理匹配（权重15%）
+- 基于双方出生年月日的八字分析
+- 五行相生相克关系
+- 日柱、年柱关系分析
+- 命中桃花与财富匹配
+
 请提供：
 1. 总体匹配度（0-100分）
-2. 各维度详细得分
-3. 三条针对性的改善建议
+2. 各维度详细得分（0-100分）
+3. 命理分析总结（包括相合度、优势和挑战）
+4. 三条针对性的改善建议
 
 注意：
 - 建议要具体可行
@@ -54,6 +61,12 @@ export const matchAnalysisPrompt = `
     "communication": number,
     "lifestyle": number,
     "overall": number
+  },
+  "destinyAnalysis": {
+    "summary": string,
+    "compatibility": string,
+    "strengths": string,
+    "challenges": string
   },
   "suggestions": [
     {

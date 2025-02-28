@@ -94,6 +94,7 @@ export async function POST(request: Request) {
       personB: personB.name,
       overall: result.overall,
       dimensions: result.dimensions,
+      destinyAnalysis: result.destinyAnalysis,
       suggestions: result.suggestions.map(s => ({
         title: s.title,
         content: s.content

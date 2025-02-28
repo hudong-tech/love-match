@@ -54,6 +54,12 @@ export const testPersonB = {
   }
 }
 
+// 添加符合user_info格式的测试用户数据
+export const testUserInfo = {
+  self: testPersonA,
+  partner: testPersonB
+}
+
 // 测试答案数据
 export const testAnswers = [
   // 日常相处体验
@@ -148,27 +154,30 @@ export const expectedResult: ResultData = {
   overall: 85,
   dimensions: {
     daily: 82,        // 日常相处
-    values: 88,       // 价值观
-    communication: 85, // 沟通方式
-    lifestyle: 80,    // 生活方式
-    overall: 85       // 综合评价
+    values: 88,        // 价值观
+    communication: 79, // 沟通方式
+    lifestyle: 84,     // 生活方式
+    overall: 92        // 综合评价
   },
   suggestions: [
     {
-      title: '加强沟通和理解',
-      content: '建议两人可以定期进行深入的交流...'
+      title: "加强沟通的深度",
+      content: "尝试定期安排一对一的深度交流时间，分享各自内心真实的想法和感受，而不仅仅是日常事务的沟通。"
     },
     {
-      title: "沟通方式",
-      content: "建议多创造独处时间，增进彼此了解。"
+      title: "培养共同兴趣爱好",
+      content: "发现并培养更多共同的兴趣爱好，这将增加你们相处的乐趣和默契，创造更多美好的共同回忆。"
     },
     {
-      title: "生活习惯",
-      content: "可以一起制定一些共同的生活计划。"
-    },
-    {
-      title: "价值观",
-      content: "在重要决定上多交流，寻求共识。"
+      title: "平衡个人空间与亲密关系",
+      content: "在亲密关系中保持适当的个人空间和独立性，尊重彼此的个人边界，这有助于保持关系的新鲜感和可持续性。"
     }
-  ]
+  ],
+  // 添加命理分析字段
+  destinyAnalysis: {
+    summary: "从命理学角度看，你们的八字有较好的相合性，但也存在一些需要注意的地方。",
+    compatibility: "你们的日柱五行相生，显示出日常生活中能相互支持；年柱关系较为中和，家庭背景契合度适中。",
+    strengths: "命中桃花线相交，感情基础稳固；男方命中财星旺，有利于家庭经济稳定。",
+    challenges: "女方命中有太多水元素，男方火元素较强，需要在情绪管理上相互理解和包容。"
+  }
 } 

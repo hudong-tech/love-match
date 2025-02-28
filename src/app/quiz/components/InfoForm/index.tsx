@@ -7,7 +7,7 @@ import { Section } from '@/components/common/Section'
 import type { UserInfo } from '../../types'
 import { PersonForm } from './PersonForm'
 import Link from 'next/link'
-import { testPersonA, testPersonB, testAnswers } from '../../data/testData'
+import { testPersonA, testPersonB, testAnswers, testUserInfo } from '../../data/testData'
 
 export function InfoForm() {
   const router = useRouter()
@@ -55,15 +55,14 @@ export function InfoForm() {
 
   // 添加测试功能
   const handleTestMode = () => {
-    // 存储个人信息
-    localStorage.setItem('person_a', JSON.stringify(testPersonA))
-    localStorage.setItem('person_b', JSON.stringify(testPersonB))
+    // 使用正确格式存储测试用户信息
+    localStorage.setItem('user_info', JSON.stringify(testUserInfo))
     
     // 存储测试答案
     localStorage.setItem('quiz_answers', JSON.stringify(testAnswers))
     
     // 存储当前步骤为最后一题
-    localStorage.setItem('quiz_step', '19') // 更新为实际的问题总数
+    localStorage.setItem('quiz_step', '19')
     
     // 跳转到问卷页面
     router.push('/quiz/quiz')
